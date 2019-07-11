@@ -40,10 +40,68 @@
         $description = (string) htmlspecialchars($_POST['description']);
         if(!$description) $errdescription = "**Your description don't have a good format or it is emply**";
         
+
+//upload part
+
         $photo = (string) htmlspecialchars($_POST['my-file']);
         if(!$photo) $errphoto = "**Your photo don't have a good format or it is emply**";
-        
+        /* this part doesn't work
+$_FILES['my-file']['name'];
+$_FILES['my-file']['type']; 
+$_FILES['my-file']['size']; 
+$_FILES['my-file']['tmp_name']; 
+$_FILES['my-file']['error']; 
 
+
+$destinationDir = '/uploads/';
+$destinationFilePath = $destinationDir . basename($_FILES['my-file']['name']);
+// basename() return the name of the file without the full path of the directory and so on
+if ($_FILES['my-file']['error'] != UPLOAD_ERR_OK) {
+    echo 'Erreur lors du téléchargement.';
+    die();
+}
+
+if (move_uploaded_file($_FILES['my-file']['tmp_name'], $destinationFilePath)) {
+    echo 'Le fichier a été téléchargé.';
+} else {
+    echo 'Erreur lors de l\'enregistrement.';
+}
+
+
+$extFoundInArray = array_search(
+    $_FILES['file']['type'], array(
+        'jpg' => 'image/jpeg',
+        'png' => 'image/png',
+        'gif' => 'image/gif',
+    )
+);
+if ($extFoundInArray === false) {
+    echo 'Le fichier n\'est pas une image';
+    die();
+}
+
+$path = './uploads/' . sha1_file($_FILES['upfile']['tmp_name']) . '.' . $extFoundInArray;
+$moved = move_uploaded_file($_FILES['upfile']['tmp_name'], $path);
+if (!$moved) {
+    echo 'Erreur lors de l\'enregistrement';
+}
+
+$shaFile = sha1_file($_FILES['upfile']['tmp_name']);
+$nbFiles = 0;
+do {
+    $path = './uploads/' . $shaFile . '_' . $nbFiles . '.' . $extFoundInArray;
+    $nbFiles++;
+} while(file_exists($path));
+
+$moved = move_uploaded_file($_FILES['upfile']['tmp_name'], $path);
+if (!$moved) {
+    echo 'Erreur lors de l\'enregistrement';
+}
+
+//end of the upload
+*/
+
+        
     if($title && $adress && $city && $finalPostCode && $area && $price && $type && $description && $photo){
 
         // get id_type from the category
